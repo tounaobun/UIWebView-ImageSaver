@@ -28,7 +28,7 @@
         NSString *urlToSave = [self stringByEvaluatingJavaScriptFromString:imgURL];
         if (urlToSave.length) {
             // recognize image
-            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存图片", nil];
+            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save Image", nil];
             sheet.accessibilityValue = urlToSave;   // pass value
             [sheet showInView:self];
         }
