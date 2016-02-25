@@ -24,12 +24,12 @@
     if (sender.state == UIGestureRecognizerStateBegan) {
         
         CGPoint touchPoint = [sender locationInView:self];
-        NSString *imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", touchPoint.x, touchPoint.y - 64];   // 要考虑导航栏高度对touchPoint的影响
+        NSString *imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", touchPoint.x, touchPoint.y - 64];   // Consider navigation bar height
         NSString *urlToSave = [self stringByEvaluatingJavaScriptFromString:imgURL];
         if (urlToSave.length) {
-            // 识别到图片
+            // recognize image
             UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存图片", nil];
-            sheet.accessibilityValue = urlToSave;   // 传值
+            sheet.accessibilityValue = urlToSave;   // pass value
             [sheet showInView:self];
         }
     }
@@ -40,12 +40,12 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (buttonIndex != actionSheet.cancelButtonIndex) {
-
+        
         NSString *urlToSave = actionSheet.accessibilityValue;
         NSURL * imageURL = [NSURL URLWithString:urlToSave];
         NSData * imageData = [NSData dataWithContentsOfURL:imageURL];
         UIImage * image = [UIImage imageWithData:imageData];
-        // 保存到系统相册
+        // save to photo album
         UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
 }
@@ -53,9 +53,9 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     
     if (!error) {
-        [WPAppManager showGlobalCompleteHUDWithTitle:@"已保存到系统相册"];
+        NSLog(@"success");
     } else {
-        [WPAppManager showTextHudWithTitle:@"保存失败"];
+        NSLog(@"failure");
     }
 }
 

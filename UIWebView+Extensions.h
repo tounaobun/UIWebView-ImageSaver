@@ -10,9 +10,6 @@
 
 @interface UIWebView (Extensions)
 
-/**
- *  支持H5页面图片保存到客户端
- */
 - (void)enableLongPressingToSaveImage;
 
 @end
